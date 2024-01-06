@@ -1,5 +1,5 @@
 import { scenes, inputs } from 'umengine';
-import { Atom, SpriteRenderer, BoxCollider, Vector2H } from 'umengine/core';
+import { Atom, Sprite, Vector2H } from 'umengine/core';
 import { Vector } from 'umengine/types';
 
 export default function createPlayer(sprite: ImageBitmap, position: Vector) {
@@ -9,10 +9,10 @@ export default function createPlayer(sprite: ImageBitmap, position: Vector) {
   const player = new Atom('player');
   player.layer = 'foreground';
   player.scale = { x: TileSize, y: TileSize };
-  const spriteRenderer = new SpriteRenderer(player, sprite);
-  spriteRenderer.order = 4;
-  player.components.add(spriteRenderer);
-  player.components.add(new BoxCollider(player));
+  player.components.add('BoxCollider');
+  const spriteComponent = player.components.add<Sprite>('Sprite');
+  spriteComponent.image = sprite;
+  spriteComponent.order = 4;
 
   /** game logic start */
 

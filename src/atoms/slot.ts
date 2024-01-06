@@ -1,6 +1,6 @@
 import { scenes } from 'umengine';
 import { Vector } from 'umengine/types';
-import { Atom, BoxCollider, SpriteRenderer, Vector2H } from 'umengine/core';
+import { Atom, Sprite, Vector2H } from 'umengine/core';
 
 export default function createCrateSlot(sprite: ImageBitmap, position: Vector) {
   const { store } = scenes.context;
@@ -12,12 +12,11 @@ export default function createCrateSlot(sprite: ImageBitmap, position: Vector) {
   slot.position = position;
   slot.scale = { x: TileSize, y: TileSize };
   slot.data.filledWith = null;
-
-  const spriteRenderer = new SpriteRenderer(slot, sprite);
-  spriteRenderer.order = 2;
-
-  slot.components.add(spriteRenderer);
-  slot.components.add(new BoxCollider(slot));
+  slot.components.add('BoxCollider');
+  slot.components.add('FixedBody');
+  const spriteComponent = slot.components.add<Sprite>('Sprite');
+  spriteComponent.image = sprite;
+  spriteComponent.order = 2;
 
   /** game logic start */
 

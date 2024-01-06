@@ -26,8 +26,8 @@ export default async function loadLevel(levelNum: string) {
   store.blockedLocations = new Set<string>();
 
   const scene = scenes.current;
-  scene.layerManager.createLayer('background');
-  scene.layerManager.createLayer('foreground');
+  scene.layerComposer.add('background');
+  scene.layerComposer.add('foreground');
 
   const sprites = await createSprites(tileset);
 

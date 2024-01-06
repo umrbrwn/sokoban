@@ -1,6 +1,6 @@
 import { scenes } from 'umengine';
 import { Vector } from 'umengine/types';
-import { Atom, BoxCollider, SpriteRenderer, Vector2H } from 'umengine/core';
+import { Atom, Sprite, Vector2H } from 'umengine/core';
 
 export default function createCrate(sprite: ImageBitmap, position: Vector) {
   const { context } = scenes;
@@ -11,12 +11,10 @@ export default function createCrate(sprite: ImageBitmap, position: Vector) {
   crate.tag = 'crate';
   crate.position = position;
   crate.scale = { x: TileSize, y: TileSize };
-
-  const spriteRenderer = new SpriteRenderer(crate, sprite);
-  spriteRenderer.order = 3;
-
-  crate.components.add(spriteRenderer);
-  crate.components.add(new BoxCollider(crate));
+  crate.components.add('BoxCollider');
+  const spriteComponent = crate.components.add<Sprite>('Sprite');
+  spriteComponent.image = sprite;
+  spriteComponent.order = 3;
 
   const blockedLocations = context.store.blockedLocations as Set<string>;
 

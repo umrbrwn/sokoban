@@ -1,5 +1,5 @@
 import { scenes } from 'umengine';
-import { Atom, SpriteRenderer } from 'umengine/core';
+import { Atom, Sprite } from 'umengine/core';
 
 export default function createGround(sprite: ImageBitmap) {
   const { context } = scenes;
@@ -10,8 +10,8 @@ export default function createGround(sprite: ImageBitmap) {
     x: context.config.window.width,
     y: context.config.window.height,
   };
-
-  ground.components.add(new SpriteRenderer(ground, sprite));
+  const spriteComponent = ground.components.add<Sprite>('Sprite');
+  spriteComponent.image = sprite;
 
   return ground;
 }
